@@ -141,15 +141,148 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   transition: background 0.35s, color 0.35s;
 }
 
-@media (max-width: 900px) {
-  .nav { padding: 1.4rem 1.5rem; }
+@media (max-width: 700px) {
+  .nav { padding: 1.3rem 1.5rem; }
   .nav-links { gap: 1rem; }
-  .nav-link { font-size: 0.72rem; letter-spacing: 0.14em; }
-  .nav-link.cta { padding: 0.55rem 1rem; }
+  .nav-link.cta { padding: 0.6rem 1.1rem; }
 }
-@media (max-width: 560px) {
-  .nav-link:not(.cta):not(.nav-logo) { display: none; }
-  .nav-link.cta { display: inline-block; }
+
+/* ===== MENU OVERLAY ===== */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--dark);
+  color: var(--text-light);
+  z-index: 200;
+  transform: translateY(-100%);
+  transition: transform 0.7s cubic-bezier(0.77, 0, 0.175, 1);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  color-scheme: dark;
+}
+.menu-overlay.open { transform: translateY(0); }
+
+.menu-overlay-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 2rem 3rem 6rem;
+}
+
+.menu-overlay-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0 4rem;
+}
+
+.menu-overlay-brand {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.menu-overlay-close {
+  border: 1px solid var(--text-light);
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  transition: background 0.35s, color 0.35s;
+  touch-action: manipulation;
+}
+.menu-overlay-close:hover { background: var(--text-light); color: var(--dark); }
+
+.menu-overlay h2 {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 11vw, 10rem);
+  font-weight: 500;
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.menu-overlay-sub {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: rgba(253, 246, 236, 0.7);
+  margin-bottom: 4rem;
+  max-width: 500px;
+}
+
+.menu-sections {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4rem 5rem;
+}
+
+.menu-cat {
+  border-top: 1px solid var(--border-light);
+  padding-top: 1.8rem;
+}
+
+.menu-cat-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px dotted rgba(253, 246, 236, 0.2);
+}
+
+.menu-item-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.menu-item-desc {
+  font-size: 0.85rem;
+  color: rgba(253, 246, 236, 0.65);
+  margin-top: 0.3rem;
+  max-width: 90%;
+}
+
+.menu-item-price {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  padding-left: 1rem;
+}
+
+.menu-overlay-foot {
+  margin-top: 5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.menu-overlay-foot p {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: rgba(253, 246, 236, 0.7);
+  max-width: 380px;
+}
+
+@media (max-width: 800px) {
+  .menu-overlay-inner { padding: 1.5rem 1.5rem 4rem; }
+  .menu-sections { grid-template-columns: 1fr; gap: 3rem; }
 }
 
 /* ===== HERO ===== */
@@ -275,6 +408,16 @@ section {
 .container {
   max-width: 1300px;
   margin: 0 auto;
+}
+.section-dark {
+  background: var(--dark);
+  color: var(--text-light);
+  color-scheme: dark;
+}
+.section-dark-2 {
+  background: var(--dark-2);
+  color: var(--text-light);
+  color-scheme: dark;
 }
 
 .eyebrow {
@@ -425,8 +568,7 @@ section {
   gap: 4rem;
 }
 
-.carte-col h3,
-.menu-subtitle {
+.carte-col h3 {
   font-family: var(--font-display);
   font-style: italic;
   font-size: 1.4rem;
@@ -445,7 +587,7 @@ section {
   gap: 1.5rem;
 }
 .dish:last-child { border-bottom: none; }
-.dish-body { flex: 1; min-width: 0; }
+.dish-body { flex: 1; }
 .dish-name {
   font-family: var(--font-display);
   font-size: 1.3rem;
@@ -511,226 +653,9 @@ section {
   .carte-grid { grid-template-columns: 1fr; gap: 2.5rem; }
 }
 
-/* ===== COCKTAILS ===== */
-.cocktails {
-  background: var(--bg);
-  padding: 9rem 3rem;
-}
-.cocktails-head {
-  max-width: 720px;
-  margin-bottom: 5rem;
-}
-.cocktails-head p {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1.25rem;
-  line-height: 1.55;
-  color: var(--text-muted);
-  margin-top: 1.5rem;
-}
-.cocktails-head em {
-  color: var(--accent);
-  font-style: italic;
-}
-
-.cocktails-grid {
-  display: grid;
-  grid-template-columns: 0.95fr 1.1fr;
-  gap: 5rem;
-  align-items: start;
-}
-.cocktails-media {
-  aspect-ratio: 4/5;
-  overflow: hidden;
-  position: relative;
-}
-.cocktails-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.cocktails-media:hover img { transform: scale(1.04); }
-.cocktails-media::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  box-shadow: inset 0 0 0 1px var(--border);
-  pointer-events: none;
-}
-
-.cocktails-list h3,
-.cocktails-extras h3 {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: var(--accent);
-  padding-bottom: 0.7rem;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 1.2rem;
-}
-
-.cocktails-extras {
-  margin-top: 5rem;
-  display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 4rem;
-}
-
-@media (max-width: 900px) {
-  .cocktails { padding: 5rem 1.5rem; }
-  .cocktails-grid { grid-template-columns: 1fr; gap: 3rem; }
-  .cocktails-extras { grid-template-columns: 1fr; gap: 3rem; margin-top: 3.5rem; }
-}
-
-/* ===== VINS ===== */
-.vins {
-  background: var(--dark);
-  color: var(--text-light);
-  color-scheme: dark;
-  padding: 9rem 3rem;
-  position: relative;
-  overflow: hidden;
-}
-.vins::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(ellipse at 15% 10%, rgba(196, 151, 59, 0.1), transparent 55%),
-    radial-gradient(ellipse at 85% 90%, rgba(196, 151, 59, 0.07), transparent 55%);
-  pointer-events: none;
-}
-.vins .container { position: relative; }
-
-.vins-head {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  margin-bottom: 4rem;
-  align-items: end;
-}
-.vins-head .section-title { color: var(--text-light); }
-.vins-head .section-title em {
-  font-style: italic;
-  color: var(--accent);
-}
-.vins-head p {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1.2rem;
-  line-height: 1.6;
-  color: rgba(253, 246, 236, 0.72);
-  max-width: 480px;
-}
-.vins-head em { color: var(--accent); font-style: italic; }
-
-.vins-media {
-  aspect-ratio: 21 / 8;
-  overflow: hidden;
-  margin-bottom: 5rem;
-  position: relative;
-}
-.vins-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.82) contrast(1.05);
-}
-
-.vins-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4rem;
-}
-.vins-col h3 {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: var(--accent);
-  padding-bottom: 0.8rem;
-  border-bottom: 1px solid var(--border-light);
-  margin-bottom: 1.5rem;
-}
-
-.wine {
-  padding: 1.1rem 0;
-  border-bottom: 1px dotted rgba(253, 246, 236, 0.15);
-  display: flex;
-  justify-content: space-between;
-  gap: 1.2rem;
-}
-.wine:last-child { border-bottom: none; }
-.wine-body { flex: 1; min-width: 0; }
-.wine-name {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 500;
-  line-height: 1.25;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  color: var(--text-light);
-}
-.wine-origin {
-  font-size: 0.68rem;
-  color: rgba(253, 246, 236, 0.5);
-  margin-top: 0.35rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 500;
-}
-.wine-desc {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 0.9rem;
-  color: rgba(253, 246, 236, 0.72);
-  margin-top: 0.4rem;
-  line-height: 1.4;
-}
-.wine-prices {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.15rem;
-  font-family: var(--font-display);
-  color: var(--accent);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-.wine-prices .glass {
-  font-size: 0.78rem;
-  color: rgba(196, 151, 59, 0.75);
-}
-.wine-prices .glass::after { content: ' / verre'; font-size: 0.62rem; opacity: 0.75; }
-.wine-prices .bottle { font-size: 1.05rem; }
-
-.vins-note {
-  margin-top: 4rem;
-  text-align: center;
-  font-family: var(--font-display);
-  font-style: italic;
-  color: rgba(253, 246, 236, 0.55);
-  font-size: 0.9rem;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-@media (max-width: 1100px) {
-  .vins-grid { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 900px) {
-  .vins { padding: 5rem 1.5rem; }
-  .vins-head { grid-template-columns: 1fr; gap: 2rem; margin-bottom: 3rem; }
-  .vins-media { aspect-ratio: 4/3; margin-bottom: 3rem; }
-  .vins-grid { grid-template-columns: 1fr; gap: 3rem; }
-}
-
 /* ===== RESERVE (DARK) ===== */
 .reserve {
-  background: var(--dark-2);
+  background: var(--dark);
   color: var(--text-light);
   padding: 8rem 3rem;
   position: relative;
@@ -879,6 +804,83 @@ section {
 @media (max-width: 900px) {
   .history { padding: 5rem 1.5rem; }
   .history-grid { grid-template-columns: 1fr; gap: 3rem; }
+}
+
+/* ===== DRINKS (Cocktails & Vins) ===== */
+.drinks {
+  background: var(--dark-2);
+  color: var(--text-light);
+  padding: 9rem 3rem;
+  position: relative;
+  color-scheme: dark;
+}
+.drinks-head {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 5rem;
+}
+.drinks-head p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: rgba(253, 246, 236, 0.75);
+  line-height: 1.6;
+  margin-top: 1.5rem;
+}
+.drinks-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+.drink-card {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4/5;
+}
+.drink-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.drink-card:hover img { transform: scale(1.05); }
+.drink-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15, 42, 29, 0.92), rgba(15, 42, 29, 0.15) 55%, transparent 80%);
+  z-index: 1;
+}
+.drink-card-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2.5rem;
+  z-index: 2;
+}
+.drink-card-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  line-height: 0.95;
+  margin-bottom: 0.7rem;
+}
+.drink-card-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+.drink-card p {
+  font-size: 0.95rem;
+  color: rgba(253, 246, 236, 0.85);
+  max-width: 360px;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .drinks { padding: 5rem 1.5rem; }
+  .drinks-grid { grid-template-columns: 1fr; gap: 2rem; }
 }
 
 /* ===== PRESS BADGES ===== */
@@ -1077,12 +1079,122 @@ section {
 <nav class="nav" aria-label="Navigation principale">
   <a href="#top" class="nav-logo">Canaima</a>
   <div class="nav-links">
-    <a href="#carte" class="nav-link">Menu</a>
-    <a href="#cocktails" class="nav-link">Cocktails</a>
-    <a href="#vins" class="nav-link">Vins</a>
+    <button class="nav-link" id="menuToggle" aria-haspopup="true" aria-expanded="false">Menu</button>
     <a href="https://bookings.zenchef.com/results?rid=362209&pid=1001" target="_blank" rel="noopener" class="nav-link cta">Réserver</a>
   </div>
 </nav>
+
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menuOverlay" aria-hidden="true">
+  <div class="menu-overlay-inner">
+    <div class="menu-overlay-header">
+      <span class="menu-overlay-brand">Canaima — La Carte</span>
+      <button class="menu-overlay-close" id="menuClose" aria-label="Fermer le menu">Fermer</button>
+    </div>
+    <h2>La Carte<br><em style="font-style:italic; color: var(--accent);">Franco-Latino</em></h2>
+    <p class="menu-overlay-sub">Une carte qui voyage entre le Venezuela et la France, réinventée au fil des saisons par le chef Andrés.</p>
+
+    <div class="menu-sections">
+      <div class="menu-cat">
+        <div class="menu-cat-title">Pour commencer</div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Croquetas de gambas</div>
+            <div class="menu-item-desc">Gambas fondantes, chapelure maison, émulsion d'agrumes</div>
+          </div>
+          <div class="menu-item-price">15 €</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Patacón végétarien</div>
+            <div class="menu-item-desc">Plantain pressé, haricots noirs, avocat, coriandre</div>
+          </div>
+          <div class="menu-item-price">14 €</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Ceviche du marché</div>
+            <div class="menu-item-desc">Poisson du jour, leche de tigre, maïs grillé</div>
+          </div>
+          <div class="menu-item-price">16 €</div>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <div class="menu-cat-title">Les plats</div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Magret aux épices douces</div>
+            <div class="menu-item-desc">Dulce de leche relevé, patate douce rôtie</div>
+          </div>
+          <div class="menu-item-price">29 €</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Lieu jaune, sauce criolla</div>
+            <div class="menu-item-desc">Poisson cuit sur l'arête, légumes de saison</div>
+          </div>
+          <div class="menu-item-price">27 €</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Risotto de quinoa</div>
+            <div class="menu-item-desc">Champignons de saison, parmesan vieilli</div>
+          </div>
+          <div class="menu-item-price">25 €</div>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <div class="menu-cat-title">Desserts</div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Gâteau de maïs tiède</div>
+            <div class="menu-item-desc">Glace vanille de Madagascar, caramel salé</div>
+          </div>
+          <div class="menu-item-price">11 €</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Dulce de leche</div>
+            <div class="menu-item-desc">Biscuit sablé maison, fleur de sel</div>
+          </div>
+          <div class="menu-item-price">11 €</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Coulant chocolat vénézuélien</div>
+            <div class="menu-item-desc">Chocolat El Rey, sorbet fruit de la passion</div>
+          </div>
+          <div class="menu-item-price">12 €</div>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <div class="menu-cat-title">Les menus</div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Menu Découverte</div>
+            <div class="menu-item-desc">Entrée + Plat + Dessert au choix</div>
+          </div>
+          <div class="menu-item-price">42 €</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Menu Déjeuner (samedi)</div>
+            <div class="menu-item-desc">Entrée + Plat ou Plat + Dessert</div>
+          </div>
+          <div class="menu-item-price">28 €</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-overlay-foot">
+      <p>Carte évolutive selon les saisons et les arrivages. Prix indicatifs susceptibles d'évoluer.</p>
+      <a href="https://bookings.zenchef.com/results?rid=362209&pid=1001" target="_blank" rel="noopener" class="btn btn-light">Réserver une table</a>
+    </div>
+  </div>
+</div>
 
 <main id="main">
 
@@ -1166,7 +1278,7 @@ section {
   </div>
 </div>
 
-<!-- CARTE / MENU -->
+<!-- CARTE -->
 <section class="carte" id="carte">
   <div class="container">
     <div class="carte-head reveal">
@@ -1174,7 +1286,7 @@ section {
         <span class="eyebrow">La carte</span>
         <h2 class="section-title">Un aperçu<br>de la carte</h2>
       </div>
-      <p>Une sélection qui change au rythme des saisons. Prix indicatifs — susceptible d'évoluer selon les arrivages.</p>
+      <p>Une sélection qui change au rythme des saisons. Pour découvrir la carte complète, consultez notre menu.</p>
     </div>
 
     <div class="carte-grid">
@@ -1263,317 +1375,8 @@ section {
 
     <div class="carte-cta reveal">
       <p class="carte-note">Carte évolutive — Nouvelle sélection chaque saison</p>
-      <a href="https://bookings.zenchef.com/results?rid=362209&pid=1001" target="_blank" rel="noopener" class="btn btn-accent">Réserver une table</a>
+      <button class="btn" onclick="document.getElementById('menuToggle').click()">Voir la carte complète</button>
     </div>
-  </div>
-</section>
-
-<!-- COCKTAILS -->
-<section class="cocktails" id="cocktails">
-  <div class="container">
-    <div class="cocktails-head reveal">
-      <span class="eyebrow">Le bar</span>
-      <h2 class="section-title">Cocktails</h2>
-      <p>Tous nos cocktails sont également disponibles en version <em>mocktail</em> — sans alcool.</p>
-    </div>
-
-    <div class="cocktails-grid">
-      <div class="cocktails-media reveal">
-        <img src="Cocktails-boissons.jpg.avif" alt="Cocktails signatures du Canaima — margarita, mule, passion" width="800" height="1000" loading="lazy" decoding="async">
-      </div>
-
-      <div class="cocktails-list reveal">
-        <h3>Signatures · 13 €</h3>
-        <div class="dish">
-          <div class="dish-body">
-            <div class="dish-name">Margarita</div>
-            <div class="dish-desc">Tequila, Cointreau, citron vert, bord de sel &amp; piment d'Espelette</div>
-          </div>
-          <div class="dish-price">13 €</div>
-        </div>
-        <div class="dish">
-          <div class="dish-body">
-            <div class="dish-name">Canaima Mule</div>
-            <div class="dish-desc">Gin Canaima, Chartreuse, ginger beer, citron vert, romarin</div>
-          </div>
-          <div class="dish-price">13 €</div>
-        </div>
-        <div class="dish">
-          <div class="dish-body">
-            <div class="dish-name">Martini Passion</div>
-            <div class="dish-desc">Martini bianco, fruit de la passion, sirop de vanille, citron vert</div>
-          </div>
-          <div class="dish-price">13 €</div>
-        </div>
-        <div class="dish">
-          <div class="dish-body">
-            <div class="dish-name">Paperón con Limón</div>
-            <div class="dish-desc">Rhum ambré, peau d'ananas infusée, citron vert, papelón (mélasse de canne à sucre)</div>
-          </div>
-          <div class="dish-price">13 €</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="cocktails-extras reveal">
-      <div>
-        <h3>Bières</h3>
-        <div class="dish">
-          <div class="dish-body">
-            <div class="dish-name">Bières du moment</div>
-            <div class="dish-desc">Sélection locale selon disponibilité</div>
-          </div>
-          <div class="dish-price">6 — 7 €</div>
-        </div>
-      </div>
-
-      <div>
-        <h3>Softs &amp; boissons chaudes</h3>
-        <div class="dish">
-          <div class="dish-body"><div class="dish-name">Coca-Cola · Coca-Cola Zero</div></div>
-          <div class="dish-price">3,50 €</div>
-        </div>
-        <div class="dish">
-          <div class="dish-body"><div class="dish-name">Limonade BIO citron</div></div>
-          <div class="dish-price">4 €</div>
-        </div>
-        <div class="dish">
-          <div class="dish-body"><div class="dish-name">Eau plate / gazeuse · 1 L</div></div>
-          <div class="dish-price">4 €</div>
-        </div>
-        <div class="dish">
-          <div class="dish-body"><div class="dish-name">Jus de fruits</div></div>
-          <div class="dish-price">4 €</div>
-        </div>
-        <div class="dish">
-          <div class="dish-body">
-            <div class="dish-name">Café</div>
-            <div class="dish-desc">Origine Amérique Latine</div>
-          </div>
-          <div class="dish-price">2,50 €</div>
-        </div>
-        <div class="dish">
-          <div class="dish-body"><div class="dish-name">Thé &amp; infusions</div></div>
-          <div class="dish-price">3,50 €</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- VINS -->
-<section class="vins" id="vins">
-  <div class="container">
-    <div class="vins-head reveal">
-      <div>
-        <span class="eyebrow">Carte des vins</span>
-        <h2 class="section-title">La <em>cave</em></h2>
-      </div>
-      <p>Une sélection resserrée qui met à l'honneur les terroirs <em>chiliens</em> et <em>argentins</em>, aux côtés des grands vins français bio et biodynamiques.</p>
-    </div>
-
-    <div class="vins-media reveal">
-      <img src="Vins.jpg.avif" alt="Cave à vins du Canaima — sélection franco-sud-américaine" width="1600" height="700" loading="lazy" decoding="async">
-    </div>
-
-    <div class="vins-grid">
-      <!-- VINS ROUGES -->
-      <div class="vins-col reveal">
-        <h3>Vins rouges</h3>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">Portillo · Malbec</div>
-            <div class="wine-origin">Bodegas Salentein — Mendoza, Argentine</div>
-            <div class="wine-desc">Fruits rouges, voluptueux, tannins ronds</div>
-          </div>
-          <div class="wine-prices"><span class="glass">6 €</span><span class="bottle">36 €</span></div>
-        </div>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">Gamay Noir</div>
-            <div class="wine-origin">Domaine Grands Fers — Fleurie AOP, France</div>
-            <div class="wine-desc">Fruits, structure, légèreté — sans sulfites ajoutés</div>
-          </div>
-          <div class="wine-prices"><span class="glass">6 €</span><span class="bottle">36 €</span></div>
-        </div>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">Callia Alta · Syrah-Malbec</div>
-            <div class="wine-origin">Bodegas Callia — San Juan, Argentine</div>
-            <div class="wine-desc">Fruits rouges, tannins, épices</div>
-          </div>
-          <div class="wine-prices"><span class="bottle">38 €</span></div>
-        </div>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">L'Essentiel · Grenache</div>
-            <div class="wine-origin">Domaine Dieu-Le-Fit — Côtes du Rhône Villages AOP, Fr</div>
-            <div class="wine-desc">Bio — notes de cerise, délicat et gourmand</div>
-          </div>
-          <div class="wine-prices"><span class="bottle">37 €</span></div>
-        </div>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">William Cole Reserve · Carmenère</div>
-            <div class="wine-origin">Valle Colchagua, Chili</div>
-            <div class="wine-desc">Très fruité, cassis, violette, poivre — surprenant</div>
-          </div>
-          <div class="wine-prices"><span class="bottle">41 €</span></div>
-        </div>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">Aupilhac</div>
-            <div class="wine-origin">Domaine de l'Aupilhac — Montpeyroux, Languedoc AOP, Fr</div>
-            <div class="wine-desc">Biodynamique — fruits rouges, cerises, épices</div>
-          </div>
-          <div class="wine-prices"><span class="bottle">46 €</span></div>
-        </div>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">Les Roches · Gamay</div>
-            <div class="wine-origin">Domaine Grands Fers — Fleurie AOP, France</div>
-            <div class="wine-desc">Vin d'une seule parcelle, finesse — sans sulfites</div>
-          </div>
-          <div class="wine-prices"><span class="bottle">48 €</span></div>
-        </div>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">Salentein Reserva · Cabernet Sauvignon</div>
-            <div class="wine-origin">Mendoza, Argentine</div>
-            <div class="wine-desc">Élégant, puissant, cassis, poivré, bois grillé</div>
-          </div>
-          <div class="wine-prices"><span class="bottle">51 €</span></div>
-        </div>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">Numina Gran Corte</div>
-            <div class="wine-origin">Bodegas Salentein — Mendoza, Argentine</div>
-            <div class="wine-desc">Myrtille, prune, vanille, chocolat — tannins complexes</div>
-          </div>
-          <div class="wine-prices"><span class="bottle">68 €</span></div>
-        </div>
-      </div>
-
-      <!-- VINS BLANCS / ROSÉ -->
-      <div class="vins-col reveal">
-        <h3>Blancs &amp; Rosés</h3>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">Les Béatines · Blanc</div>
-            <div class="wine-origin">Domaine Les Béates — Aix-en-Provence AOP, Fr</div>
-            <div class="wine-desc">Bio — frais, pêche et abricot</div>
-          </div>
-          <div class="wine-prices"><span class="glass">6 €</span><span class="bottle">35 €</span></div>
-        </div>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">Portillo · Chardonnay</div>
-            <div class="wine-origin">Bodegas Salentein — Mendoza, Argentine</div>
-            <div class="wine-desc">Pommes, bananes, minéral, belle acidité</div>
-          </div>
-          <div class="wine-prices"><span class="glass">6 €</span><span class="bottle">36 €</span></div>
-        </div>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">Les Béatines · Rosé</div>
-            <div class="wine-origin">Aix-en-Provence AOP, France</div>
-            <div class="wine-desc">Parfums de fruits et fleurs, bouche ample et fraîche</div>
-          </div>
-          <div class="wine-prices"><span class="bottle">35 €</span></div>
-        </div>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">Viognier</div>
-            <div class="wine-origin">Domaine Le Petit Malo — IGP Cévennes, Fr</div>
-            <div class="wine-desc">Abricot sec, fleurs blanches, belle acidité</div>
-          </div>
-          <div class="wine-prices"><span class="bottle">36 €</span></div>
-        </div>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">Mirador Reserve · Sauvignon Blanc</div>
-            <div class="wine-origin">William Cole — Casablanca, Chili</div>
-            <div class="wine-desc">Notes citronnées, mandarine, fraîcheur</div>
-          </div>
-          <div class="wine-prices"><span class="bottle">41 €</span></div>
-        </div>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">Les Perrières · Chenin Blanc</div>
-            <div class="wine-origin">Arnaud Lambert — AOP Saumur, Loire, Fr</div>
-            <div class="wine-desc">Bio — minéral, notes florales, fruits blancs</div>
-          </div>
-          <div class="wine-prices"><span class="bottle">48 €</span></div>
-        </div>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">Chablis</div>
-            <div class="wine-origin">Domaine des Malandes — AOC Bourgogne, Fr</div>
-            <div class="wine-desc">Biodynamique — frais, rond, minéralité, agrumes</div>
-          </div>
-          <div class="wine-prices"><span class="bottle">51 €</span></div>
-        </div>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">Salentein Reserva · Chardonnay</div>
-            <div class="wine-origin">Mendoza, Argentine</div>
-            <div class="wine-desc">Gras et rond, fruité, minéral, belle longueur</div>
-          </div>
-          <div class="wine-prices"><span class="bottle">51 €</span></div>
-        </div>
-      </div>
-
-      <!-- BULLES -->
-      <div class="vins-col reveal">
-        <h3>Bulles</h3>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">Miolo · Cuvée Tradition Brut</div>
-            <div class="wine-origin">Brésil</div>
-            <div class="wine-desc">Bulle élégante, arômes fins entre fruit et levures</div>
-          </div>
-          <div class="wine-prices"><span class="bottle">38 €</span></div>
-        </div>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">Champagne Jean-Cédric Deguy · Brut Sélection</div>
-            <div class="wine-origin">Champagne, France</div>
-            <div class="wine-desc">Robe or pâle, nez fruité, notes de pomme</div>
-          </div>
-          <div class="wine-prices"><span class="bottle">66 €</span></div>
-        </div>
-
-        <div class="wine">
-          <div class="wine-body">
-            <div class="wine-name">Champagne Jean-Cédric Deguy · Cuvée Miss Emma</div>
-            <div class="wine-origin">Champagne, France</div>
-            <div class="wine-desc">Finesse, fruits à chair blanche, crémosité, puissance</div>
-          </div>
-          <div class="wine-prices"><span class="bottle">84 €</span></div>
-        </div>
-      </div>
-    </div>
-
-    <p class="vins-note">La carte des vins évolue au fil des arrivages et des coups de cœur de Veronica. N'hésitez pas à demander conseil pour l'accord parfait avec votre plat.</p>
   </div>
 </section>
 
@@ -1634,6 +1437,34 @@ section {
           Andrés &amp; Veronica — Fondateurs
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- DRINKS -->
+<section class="drinks" id="boissons">
+  <div class="container">
+    <div class="drinks-head reveal">
+      <span class="eyebrow">Cocktails &amp; Vins</span>
+      <h2 class="section-title" style="color: var(--text-light);">L'art de <em style="font-style:italic; color: var(--accent);">l'accord</em></h2>
+      <p>Une cave qui met à l'honneur les terroirs chiliens et argentins, aux côtés des grands vins français. Des cocktails signatures qui prolongent le voyage.</p>
+    </div>
+
+    <div class="drinks-grid">
+      <article class="drink-card reveal">
+        <img src="Cocktails-boissons.jpg.avif" alt="Sélection de cocktails signatures au Canaima" width="800" height="1000" loading="lazy" decoding="async">
+        <div class="drink-card-body">
+          <h3 class="drink-card-title">Cocktails <em>signatures</em></h3>
+          <p>Des créations maison autour du rhum, du pisco et des agrumes frais. L'invitation à commencer le voyage dès l'apéritif.</p>
+        </div>
+      </article>
+      <article class="drink-card reveal">
+        <img src="Vins.jpg.avif" alt="Cave à vins chiliens, argentins et français du Canaima" width="800" height="1000" loading="lazy" decoding="async">
+        <div class="drink-card-body">
+          <h3 class="drink-card-title">La <em>cave</em></h3>
+          <p>Malbec d'Argentine, carménère du Chili, pinots bourguignons : une carte des vins pensée pour chaque plat, avec les conseils de Veronica.</p>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -1711,12 +1542,11 @@ section {
       <p>Cuisine bistronomique franco-latino à Lyon 1ᵉʳ. Un voyage entre la France et le Venezuela, au fil des saisons.</p>
     </div>
     <div class="footer-col">
-      <h4>Cartes</h4>
+      <h4>Adresse</h4>
       <ul>
-        <li><a href="#carte">Menu</a></li>
-        <li><a href="#cocktails">Cocktails</a></li>
-        <li><a href="#vins">Vins</a></li>
-        <li><a href="#histoire">Notre histoire</a></li>
+        <li>24 Rue René Leynaud</li>
+        <li>69001 Lyon</li>
+        <li><a href="tel:+33987058725">09 87 05 87 25</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -1729,12 +1559,12 @@ section {
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Contact &amp; suivre</h4>
+      <h4>Suivre</h4>
       <ul>
-        <li>24 Rue René Leynaud, 69001 Lyon</li>
-        <li><a href="tel:+33987058725">09 87 05 87 25</a></li>
         <li><a href="https://www.instagram.com/canaimalyon" target="_blank" rel="noopener">Instagram</a></li>
         <li><a href="https://www.facebook.com/restaurantcanaimalyon" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="https://bookings.zenchef.com/results?rid=362209&pid=1001" target="_blank" rel="noopener">Réserver</a></li>
+        <li><a href="https://restaurantcanaima.secretbox.fr" target="_blank" rel="noopener">Bon cadeau</a></li>
       </ul>
     </div>
   </div>
@@ -1745,6 +1575,26 @@ section {
 </footer>
 
 <script>
+  const toggle = document.getElementById('menuToggle');
+  const overlay = document.getElementById('menuOverlay');
+  const closeBtn = document.getElementById('menuClose');
+
+  function openMenu() {
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  toggle.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
   // Reveal on scroll
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
